@@ -1,5 +1,5 @@
 ## PfCandCleaner
-### useage
+### usage
 ./make
 
 ./runPfCandCleaner <inputHiForestFile\> <outputfinename\>
