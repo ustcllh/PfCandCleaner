@@ -13,46 +13,46 @@ int plot(){
 
   int nEvents = pfcand_t->GetEntries();
 
-  pfcand_t->Draw("pfPhi:pfEta>>pfcand_n_h2(50, -3,3, 50, -3.2, 3.2)", "", "colz");
+  pfcand_t->Draw("pfPhi:pfEta>>pfcand_n_h2(50, -2,2, 50, -3.2, 3.2)", "", "colz");
   TH2D* pfcand_n_h2 = (TH2D*)gDirectory->Get("pfcand_n_h2");
   pfcand_n_h2->Scale(1./nEvents);
-  pfcand_n_h2->SetMinimum(0.);
-  pfcand_n_h2->SetMaximum(1.1);
+  // pfcand_n_h2->SetMinimum(0.);
+  // pfcand_n_h2->SetMaximum(1.1);
   SetAxesTitle(pfcand_n_h2, "pfEta", "pfPhi");
 
-  pfcand_t->Draw("pfPhi:pfEta>>pfcand_n_pass_h2(50, -3,3, 50, -3.2, 3.2)", "pfPass", "colz");
+  pfcand_t->Draw("pfPhi:pfEta>>pfcand_n_pass_h2(50, -2,2, 50, -3.2, 3.2)", "pfPass", "colz");
   TH2D* pfcand_n_pass_h2 = (TH2D*)gDirectory->Get("pfcand_n_pass_h2");
   pfcand_n_pass_h2->Scale(1./nEvents);
-  pfcand_n_pass_h2->SetMinimum(0.);
-  pfcand_n_pass_h2->SetMaximum(1.1);
+  // pfcand_n_pass_h2->SetMinimum(0.);
+  // pfcand_n_pass_h2->SetMaximum(1.1);
   SetAxesTitle(pfcand_n_pass_h2, "pfEta", "pfPhi");
 
-  pfcand_t->Draw("pfPhi:pfEta>>pfcand_n_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "!pfPass", "colz");
+  pfcand_t->Draw("pfPhi:pfEta>>pfcand_n_nopass_h2(50, -2,2, 50, -3.2, 3.2)", "!pfPass", "colz");
   TH2D* pfcand_n_nopass_h2 = (TH2D*)gDirectory->Get("pfcand_n_nopass_h2");
   pfcand_n_nopass_h2->Scale(1./nEvents);
-  pfcand_n_nopass_h2->SetMinimum(0.);
-  pfcand_n_nopass_h2->SetMaximum(0.6);
+  // pfcand_n_nopass_h2->SetMinimum(0.);
+  // pfcand_n_nopass_h2->SetMaximum(0.6);
   SetAxesTitle(pfcand_n_nopass_h2, "pfEta", "pfPhi");
 
-  pfcand_t->Draw("pfPhi:pfEta>>pfcand_pt_h2(50, -3,3, 50, -3.2, 3.2)", "(1)*pfPt", "colz");
+  pfcand_t->Draw("pfPhi:pfEta>>pfcand_pt_h2(50, -2,2, 50, -3.2, 3.2)", "(1)*pfPt", "colz");
   TH2D* pfcand_pt_h2 = (TH2D*)gDirectory->Get("pfcand_pt_h2");
   pfcand_pt_h2->Scale(1./nEvents);
-  pfcand_pt_h2->SetMinimum(0.);
-  pfcand_pt_h2->SetMaximum(1.6);
+  // pfcand_pt_h2->SetMinimum(0.);
+  // pfcand_pt_h2->SetMaximum(1.6);
   SetAxesTitle(pfcand_pt_h2, "pfEta", "pfPhi");
 
-  pfcand_t->Draw("pfPhi:pfEta>>pfcand_pt_pass_h2(50, -3,3, 50, -3.2, 3.2)", "pfPass*pfPt", "colz");
+  pfcand_t->Draw("pfPhi:pfEta>>pfcand_pt_pass_h2(50, -2,2, 50, -3.2, 3.2)", "pfPass*pfPt", "colz");
   TH2D* pfcand_pt_pass_h2 = (TH2D*)gDirectory->Get("pfcand_pt_pass_h2");
   pfcand_pt_pass_h2->Scale(1./nEvents);
-  pfcand_pt_pass_h2->SetMinimum(0.);
-  pfcand_pt_pass_h2->SetMaximum(1.6);
+  // pfcand_pt_pass_h2->SetMinimum(0.);
+  // pfcand_pt_pass_h2->SetMaximum(1.6);
   SetAxesTitle(pfcand_pt_pass_h2, "pfEta", "pfPhi");
 
-  pfcand_t->Draw("pfPhi:pfEta>>pfcand_pt_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "(!pfPass)*pfPt", "colz");
+  pfcand_t->Draw("pfPhi:pfEta>>pfcand_pt_nopass_h2(50, -2,2, 50, -3.2, 3.2)", "(!pfPass)*pfPt", "colz");
   TH2D* pfcand_pt_nopass_h2 = (TH2D*)gDirectory->Get("pfcand_pt_nopass_h2");
   pfcand_pt_nopass_h2->Scale(1./nEvents);
-  pfcand_pt_nopass_h2->SetMinimum(0.);
-  pfcand_pt_nopass_h2->SetMaximum(0.6);
+  // pfcand_pt_nopass_h2->SetMinimum(0.);
+  // pfcand_pt_nopass_h2->SetMaximum(0.6);
   SetAxesTitle(pfcand_pt_nopass_h2, "pfEta", "pfPhi");
 
   std::cout
@@ -68,103 +68,103 @@ int plot(){
   TCanvas* pfcand_c = new TCanvas("pfcand_c", "", 1000, 600);
   pfcand_c->Divide(3,2);
   pfcand_c->cd(1);
-  pfcand_n_h2->Draw("colz");
+  pfcand_n_h2->Draw("surf2");
   pfcand_c->cd(2);
-  pfcand_n_pass_h2->Draw("colz");
+  pfcand_n_pass_h2->Draw("surf2");
   pfcand_c->cd(3);
-  pfcand_n_nopass_h2->Draw("colz");
+  pfcand_n_nopass_h2->Draw("surf2");
   pfcand_c->cd(4);
-  pfcand_pt_h2->Draw("colz");
+  pfcand_pt_h2->Draw("surf2");
   pfcand_c->cd(5);
-  pfcand_pt_pass_h2->Draw("colz");
+  pfcand_pt_pass_h2->Draw("surf2");
   pfcand_c->cd(6);
-  pfcand_pt_nopass_h2->Draw("colz");
+  pfcand_pt_nopass_h2->Draw("surf2");
 
   pfcand_c->SaveAs("pfcand.pdf");
 
 
-  track_t->Draw("trkPhi:trkEta>>trkn_hp_h2(50, -3,3, 50, -3.2, 3.2)", "highPurity", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkn_hp_h2(50, -3,3, 50, -3.2, 3.2)", "highPurity&&trkAlgo==4&&trkPass", "surf2");
   TH2D* trkn_hp_h2 = (TH2D*)gDirectory->Get("trkn_hp_h2");
   trkn_hp_h2->Scale(1./nEvents);
-  trkn_hp_h2->SetMinimum(0.);
-  trkn_hp_h2->SetMaximum(0.6);
+  // trkn_hp_h2->SetMinimum(0.);
+  // trkn_hp_h2->SetMaximum(0.6);
   SetAxesTitle(trkn_hp_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkn_nohp_h2(50, -3,3, 50, -3.2, 3.2)", "!highPurity", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkn_nohp_h2(50, -3,3, 50, -3.2, 3.2)", "highPurity&&trkAlgo==4&&!trkPass", "surf2");
   TH2D* trkn_nohp_h2 = (TH2D*)gDirectory->Get("trkn_nohp_h2");
   trkn_nohp_h2->Scale(1./nEvents);
-  trkn_nohp_h2->SetMinimum(0.);
-  trkn_nohp_h2->SetMaximum(0.6);
+  // trkn_nohp_h2->SetMinimum(0.);
+  // trkn_nohp_h2->SetMaximum(0.6);
   SetAxesTitle(trkn_nohp_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkn_pass_h2(50, -3,3, 50, -3.2, 3.2)", "trkPass", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkn_pass_h2(50, -3,3, 50, -3.2, 3.2)", "highPurity&&trkAlgo==6&&trkPass", "surf2");
   TH2D* trkn_pass_h2 = (TH2D*)gDirectory->Get("trkn_pass_h2");
   trkn_pass_h2->Scale(1./nEvents);
-  trkn_pass_h2->SetMinimum(0.);
-  trkn_pass_h2->SetMaximum(0.6);
+  // trkn_pass_h2->SetMinimum(0.);
+  // trkn_pass_h2->SetMaximum(0.6);
   SetAxesTitle(trkn_pass_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkn_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "!trkPass", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkn_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "highPurity&&trkAlgo==6&&!trkPass", "surf2");
   TH2D* trkn_nopass_h2 = (TH2D*)gDirectory->Get("trkn_nopass_h2");
   trkn_nopass_h2->Scale(1./nEvents);
-  trkn_nopass_h2->SetMinimum(0.);
-  trkn_nopass_h2->SetMaximum(0.6);
+  // trkn_nopass_h2->SetMinimum(0.);
+  // trkn_nopass_h2->SetMaximum(0.6);
   SetAxesTitle(trkn_nopass_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkn_hp_pass_h2(50, -3,3, 50, -3.2, 3.2)", "highPurity&&trkPass", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkn_hp_pass_h2(50, -3,3, 50, -3.2, 3.2)", "highPurity&&trkAlgo==7&&trkPass", "surf2");
   TH2D* trkn_hp_pass_h2 = (TH2D*)gDirectory->Get("trkn_hp_pass_h2");
   trkn_hp_pass_h2->Scale(1./nEvents);
-  trkn_hp_pass_h2->SetMinimum(0.);
-  trkn_hp_pass_h2->SetMaximum(0.6);
+  // trkn_hp_pass_h2->SetMinimum(0.);
+  // trkn_hp_pass_h2->SetMaximum(0.6);
   SetAxesTitle(trkn_hp_pass_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkn_hp_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "highPurity&&!trkPass", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkn_hp_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "highPurity&&trkAlgo==7&&!trkPass", "surf2");
   TH2D* trkn_hp_nopass_h2 = (TH2D*)gDirectory->Get("trkn_hp_nopass_h2");
   trkn_hp_nopass_h2->Scale(1./nEvents);
-  trkn_hp_nopass_h2->SetMinimum(0.);
-  trkn_hp_nopass_h2->SetMaximum(0.6);
+  // trkn_hp_nopass_h2->SetMinimum(0.);
+  // trkn_hp_nopass_h2->SetMaximum(0.6);
   SetAxesTitle(trkn_hp_nopass_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkpt_hp_h2(50, -3,3, 50, -3.2, 3.2)", "(highPurity)*trkPt", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkpt_hp_h2(50, -3,3, 50, -3.2, 3.2)", "(highPurity&&trkAlgo==4&&trkPass)*trkPt", "surf2");
   TH2D* trkpt_hp_h2 = (TH2D*)gDirectory->Get("trkpt_hp_h2");
   trkpt_hp_h2->Scale(1./nEvents);
-  trkpt_hp_h2->SetMinimum(0.);
-  trkpt_hp_h2->SetMaximum(0.6);
+  // trkpt_hp_h2->SetMinimum(0.);
+  // trkpt_hp_h2->SetMaximum(0.6);
   SetAxesTitle(trkpt_hp_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkpt_nohp_h2(50, -3,3, 50, -3.2, 3.2)", "(!highPurity)*trkPt", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkpt_nohp_h2(50, -3,3, 50, -3.2, 3.2)", "(highPurity&&trkAlgo==4&&!trkPass)*trkPt", "surf2");
   TH2D* trkpt_nohp_h2 = (TH2D*)gDirectory->Get("trkpt_nohp_h2");
   trkpt_nohp_h2->Scale(1./nEvents);
-  trkpt_nohp_h2->SetMinimum(0.);
-  trkpt_nohp_h2->SetMaximum(0.6);
+  // trkpt_nohp_h2->SetMinimum(0.);
+  // trkpt_nohp_h2->SetMaximum(0.6);
   SetAxesTitle(trkpt_nohp_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkpt_pass_h2(50, -3,3, 50, -3.2, 3.2)", "(trkPass)*trkPt", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkpt_pass_h2(50, -3,3, 50, -3.2, 3.2)", "(highPurity&&trkAlgo==6&&trkPass)*trkPt", "surf2");
   TH2D* trkpt_pass_h2 = (TH2D*)gDirectory->Get("trkpt_pass_h2");
   trkpt_pass_h2->Scale(1./nEvents);
-  trkpt_pass_h2->SetMinimum(0.);
-  trkpt_pass_h2->SetMaximum(0.6);
+  // trkpt_pass_h2->SetMinimum(0.);
+  // trkpt_pass_h2->SetMaximum(0.6);
   SetAxesTitle(trkpt_pass_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkpt_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "(!trkPass)*trkPt", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkpt_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "(highPurity&&trkAlgo==6&&!trkPass)*trkPt", "surf2");
   TH2D* trkpt_nopass_h2 = (TH2D*)gDirectory->Get("trkpt_nopass_h2");
   trkpt_nopass_h2->Scale(1./nEvents);
-  trkpt_nopass_h2->SetMinimum(0.);
-  trkpt_nopass_h2->SetMaximum(0.6);
+  // trkpt_nopass_h2->SetMinimum(0.);
+  // trkpt_nopass_h2->SetMaximum(0.6);
   SetAxesTitle(trkpt_nopass_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkpt_hp_pass_h2(50, -3,3, 50, -3.2, 3.2)", "(highPurity&&trkPass&&trkPt<100)*trkPt", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkpt_hp_pass_h2(50, -3,3, 50, -3.2, 3.2)", "(highPurity&&trkAlgo==7&&trkPass)*trkPt", "surf2");
   TH2D* trkpt_hp_pass_h2 = (TH2D*)gDirectory->Get("trkpt_hp_pass_h2");
   trkpt_hp_pass_h2->Scale(1./nEvents);
-  trkpt_hp_pass_h2->SetMinimum(0.);
-  trkpt_hp_pass_h2->SetMaximum(0.6);
+  // trkpt_hp_pass_h2->SetMinimum(0.);
+  // trkpt_hp_pass_h2->SetMaximum(0.6);
   SetAxesTitle(trkpt_hp_pass_h2, "trkEta", "trkPhi");
 
-  track_t->Draw("trkPhi:trkEta>>trkpt_hp_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "(highPurity&&!trkPass&&trkPt<100)*trkPt", "colz");
+  track_t->Draw("trkPhi:trkEta>>trkpt_hp_nopass_h2(50, -3,3, 50, -3.2, 3.2)", "(highPurity&&trkAlgo==7&&!trkPass)*trkPt", "surf2");
   TH2D* trkpt_hp_nopass_h2 = (TH2D*)gDirectory->Get("trkpt_hp_nopass_h2");
   trkpt_hp_nopass_h2->Scale(1./nEvents);
-  trkpt_hp_nopass_h2->SetMinimum(0.);
-  trkpt_hp_nopass_h2->SetMaximum(0.6);
+  // trkpt_hp_nopass_h2->SetMinimum(0.);
+  // trkpt_hp_nopass_h2->SetMaximum(0.6);
   SetAxesTitle(trkpt_hp_nopass_h2, "trkEta", "trkPhi");
 
   float hp = trkn_hp_h2->Integral();
@@ -307,6 +307,31 @@ int plot(){
   SetAxesTitle(jetn_h, "ratio of nPfpart before/after cut", "");
   jetn_h->Draw();
   jetn_c->SaveAs("jetnratio.pdf");
+
+
+  TString str[16];
+  str[0] = "(highPurity)*trkPt";
+  str[1] = "(!highPurity)*trkPt";
+  str[2] = "(highPurity&&trkPass)*trkPt";
+  str[3] = "(highPurity&&!trkPass)*trkPt";
+  str[4] = "(highPurity&&trkAlgo==4&&trkPass)*trkPt";
+  str[5] = "(highPurity&&trkAlgo==4&&!trkPass)*trkPt";
+  str[6] = "(highPurity&&trkAlgo==5&&trkPass)*trkPt";
+  str[7] = "(highPurity&&trkAlgo==5&&!trkPass)*trkPt";
+  str[8] = "(highPurity&&trkAlgo==6&&trkPass)*trkPt";
+  str[9] = "(highPurity&&trkAlgo==6&&!trkPass)*trkPt";
+  str[10] = "(highPurity&&trkAlgo==7&&trkPass)*trkPt";
+  str[11] = "(highPurity&&trkAlgo==7&&!trkPass)*trkPt";
+  str[12] = "(highPurity&&trkAlgo==22&&trkPass)*trkPt";
+  str[13] = "(highPurity&&trkAlgo==22&&!trkPass)*trkPt";
+  str[14] = "(highPurity&&trkAlgo==23&&trkPass)*trkPt";
+  str[15] = "(highPurity&&trkAlgo==23&&!trkPass)*trkPt";
+
+  for(int i=0; i<16; i++){
+    track_t->Draw("trkPhi:trkEta>>hist(50, -3,3, 50, -3.2, 3.2)", Form("%s", str[i].Data()), "surf2");
+    TH2D* hist = (TH2D*)gDirectory->Get("hist");
+    std::cout<<str[i]<<" : " << hist->Integral()<<std::endl;
+  }
 
   return 0;
 

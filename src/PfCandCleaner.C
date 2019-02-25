@@ -76,6 +76,8 @@ void PfCandCleaner::Init(){
   track_t->SetBranchStatus("trkAlgo", 1);
   track_t->SetBranchStatus("trkEta", 1);
   track_t->SetBranchStatus("trkPhi", 1);
+  track_t->SetBranchStatus("pfEcal", 1);
+  track_t->SetBranchStatus("pfHcal", 1);
 
   track_t->SetBranchAddress("nTrk", &nTrk);
   track_t->SetBranchAddress("trkPt", trkPt);
@@ -89,6 +91,8 @@ void PfCandCleaner::Init(){
   track_t->SetBranchAddress("trkAlgo", trkAlgo);
   track_t->SetBranchAddress("trkPhi", trkPhi);
   track_t->SetBranchAddress("trkEta", trkEta);
+  track_t->SetBranchAddress("pfEcal", pfEcal);
+  track_t->SetBranchAddress("pfHcal", pfHcal);
 
   // output tree
   // pf cands matched to calo jets
@@ -110,6 +114,8 @@ void PfCandCleaner::Init(){
   // pfcand with trkidx and cut
   pfcand_update_t = new TTree("pfcand_update_t", "pfcand_update_t");
   pfPass = new std::vector<bool>();
+  pfAlgo = new std::vector<int>();
+  pfZeroCalo = new std::vector<bool>();
   pfcand_update_t->Branch("nPFpart", &nPFpart);
   pfcand_update_t->Branch("pfId", &pfId);
   pfcand_update_t->Branch("pfPt", &pfPt);
@@ -117,6 +123,8 @@ void PfCandCleaner::Init(){
   pfcand_update_t->Branch("pfPhi", &pfPhi);
   pfcand_update_t->Branch("trkidx", &trkidx);
   pfcand_update_t->Branch("pfPass", &pfPass);
+  pfcand_update_t->Branch("pfAlgo", &pfAlgo);
+  pfcand_update_t->Branch("pfZeroCalo", &pfZeroCalo);
 
   // track with cut
   track_update_t = new TTree("track_update_t", "track_update_t");
@@ -134,6 +142,8 @@ void PfCandCleaner::Init(){
   track_update_t->Branch("trkDzError1", trkDzError1, "trkDzError1[nTrk]/F");
   track_update_t->Branch("trkAlgo", trkAlgo, "trkAlgo[nTrk]/b");
   track_update_t->Branch("trkPass", trkPass, "trkPass[nTrk]/O");
+  track_update_t->Branch("pfEcal", pfEcal, "pfEcal[nTrk]/F");
+  track_update_t->Branch("pfHcal", pfHcal, "pfHcal[nTrk]/F");
 
   std::cout << "Init(): nEvents " << nEvents << std::endl;
   std::cout << "Init(): Initialization Complete! " << std::endl;
@@ -149,6 +159,10 @@ void PfCandCleaner::PfCandTreeUpdate(){
       int key = trkidx->at(ipfcand);
       bool pass = PfCandCleaner::PfPassCut(key);
       pfPass->push_back(pass);
+      bool zerocalo = PfCandCleaner::PfZeroCalo(key);
+      pfZeroCalo->push_back(zerocalo);
+      int trkalgo = PfCandCleaner::PfTrackAlgo(key);
+      pfAlgo->push_back(trkalgo);
     }
     pfcand_update_t->Fill();
   }
@@ -159,7 +173,7 @@ void PfCandCleaner::TrackTreeUpdate(){
     PfCandCleaner::Clear();
     track_t->GetEntry(evt);
     for(int itrk=0; itrk<nTrk; itrk++){
-      bool pass = PfCandCleaner::PfPassCut(itrk);
+      bool pass = PfCandCleaner::TrkPassCut(itrk);
       trkPass[itrk] = pass;
     }
     track_update_t->Fill();
@@ -225,6 +239,7 @@ void PfCandCleaner::End(){
 bool PfCandCleaner::PfPassCut(int key){
   if(key<0) return true;
   else{
+    if(!PfZeroCalo(key)) return true;
     float trkDCA = std::sqrt(std::pow(trkDxy1[key], 2) + std::pow(trkDz1[key], 2));
     if(highPurity[key] && trkNHit[key]>11 && std::abs(trkPtError[key]/trkPt[key])<0.3 && trkDCA<3.0)
       return true;
@@ -233,6 +248,30 @@ bool PfCandCleaner::PfPassCut(int key){
   }
 };
 
+bool PfCandCleaner::TrkPassCut(int key){
+  if(key<0) return true;
+  else{
+    float trkDCA = std::sqrt(std::pow(trkDxy1[key], 2) + std::pow(trkDz1[key], 2));
+    if(highPurity[key] && trkNHit[key]>11 && std::abs(trkPtError[key]/trkPt[key])<0.3 && trkDCA<3.0)
+      return true;
+    else
+      return false;
+  }
+};
+
+
+int PfCandCleaner::PfTrackAlgo(int key){
+  if(key<0) return -9999;
+  else{
+    return (int) trkAlgo[key];
+  }
+}
+
+bool PfCandCleaner::PfZeroCalo(int key){
+  if(pfHcal[key]>0 || pfEcal[key]>0) return false;
+  else return true;
+}
+
 void PfCandCleaner::Clear(){
   pfId->clear();
   pfPt->clear();
@@ -240,6 +279,8 @@ void PfCandCleaner::Clear(){
   pfEta->clear();
   trkidx->clear();
   pfPass->clear();
+  pfAlgo->clear();
+  pfZeroCalo->clear();
   // trkPass->clear();
   pseudojet_pt->clear();
   pseudojet_n->clear();

@@ -27,6 +27,9 @@ public:
   void End();
   void Clear();
   bool PfPassCut(int key);
+  bool TrkPassCut(int key);
+  int PfTrackAlgo(int key);
+  bool PfZeroCalo(int key);
 
 private:
   TString input_str;
@@ -71,9 +74,17 @@ private:
   unsigned char trkAlgo[nTrk_max];
   float trkEta[nTrk_max];
   float trkPhi[nTrk_max];
+  float pfEcal[nTrk_max];
+  float pfHcal[nTrk_max];
 
   TTree* pfcand_update_t;
+  // pass additional track quality cut
   std::vector<bool>* pfPass;
+  // has non-zero colorimeter energy
+  std::vector<bool>* pfZeroCalo;
+  // associated track algorithm
+  std::vector<int>* pfAlgo;
+
   TTree* track_update_t;
   bool trkPass[nTrk_max];
 
