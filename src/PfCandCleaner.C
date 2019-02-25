@@ -239,7 +239,8 @@ void PfCandCleaner::End(){
 bool PfCandCleaner::PfPassCut(int key){
   if(key<0) return true;
   else{
-    if(!PfZeroCalo(key)) return true;
+    // uncomment the line below to enable ZeroCalo filter
+    // if(!PfZeroCalo(key)) return true;
     float trkDCA = std::sqrt(std::pow(trkDxy1[key], 2) + std::pow(trkDz1[key], 2));
     if(highPurity[key] && trkNHit[key]>11 && std::abs(trkPtError[key]/trkPt[key])<0.3 && trkDCA<3.0)
       return true;
